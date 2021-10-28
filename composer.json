@@ -1,0 +1,34 @@
+{
+    "name": "shoperpl/shoper_distance_api",
+    "type": "api",
+    "description": "ShoperDistanceAPI",
+    "require": {
+        "php": "^7.4",
+        "ext-curl": "*",
+        "monolog/monolog": "^2.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.2",
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "ShoperPL\\ShoperDistanceAPI\\": "source/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ShoperPL\\ShoperDistanceAPI\\": "tests/"
+        }
+    }
+}
