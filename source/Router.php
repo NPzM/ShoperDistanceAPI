@@ -5,6 +5,15 @@ namespace ShoperPL\ShoperDistanceAPI;
 
 class Router
 {
+    public static function delete($route, $callback)
+    {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'DELETE') !== 0) {
+            return;
+        }
+
+        self::on($route, $callback);
+    }
+
     public static function get($route, $callback)
     {
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') !== 0) {
@@ -35,6 +44,15 @@ class Router
     public static function post($route, $callback)
     {
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') !== 0) {
+            return;
+        }
+
+        self::on($route, $callback);
+    }
+
+    public static function put($route, $callback)
+    {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'PUT') !== 0) {
             return;
         }
 
