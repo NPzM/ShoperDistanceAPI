@@ -4,8 +4,9 @@ namespace ShoperPL\ShoperDistanceAPI\Model;
 
 use ShoperPL\ShoperDistanceAPI\Config;
 use ShoperPL\ShoperDistanceAPI\Database;
+use ShoperPL\ShoperDistanceAPI\Model\AbstractModel;
 
-class Office
+class Office extends AbstractModel
 {
     /**
      * @var int id indentyfikator
@@ -21,16 +22,6 @@ class Office
      * @var int street ulica
      */
     public $street;
-
-    /**
-     * @var string latitude szerokość geograficzna
-     */
-    public $latitude;
-
-    /**
-     * @var string longitude długość geograficzna
-     */
-    public $longitude;
 
     public function __construct(string $city, string $street, string $latitude, string $longitude, int $id = null)
     {

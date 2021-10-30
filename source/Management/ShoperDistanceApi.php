@@ -97,6 +97,10 @@ class ShoperDistanceApi extends AbstractManagement
 
         $this->logger->info('Pobranie informacji zakończyło się sukcesem');
 
+        if (!$office) {
+            throw new \Exception("Nie znaleziono biura", ApiConstants::HTTP_NOT_FOUND);
+        }
+
         return $office;
     }
 

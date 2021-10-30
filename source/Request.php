@@ -18,9 +18,9 @@ class Request
 
     public function getBody()
     {
-        if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
-            return '';
-        }
+        // if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
+        //     return '';
+        // }
 
         $body = [];
         foreach ($_POST as $key => $value) {
@@ -32,9 +32,9 @@ class Request
 
     public function getJSON()
     {
-        if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
-            return [];
-        }
+        // if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
+        //     return [];
+        // }
 
         if (strcasecmp($this->contentType, 'application/json') !== 0) {
             return [];

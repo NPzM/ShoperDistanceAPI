@@ -5,6 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/vendor/autoload.php';
 
 use ShoperPL\ShoperDistanceAPI\Management\ShoperDistanceApi;
+use ShoperPL\ShoperDistanceAPI\Management\HereApi;
 use ShoperPL\ShoperDistanceAPI\Router;
 use ShoperPL\ShoperDistanceAPI\Request;
 use ShoperPL\ShoperDistanceAPI\Response;
@@ -31,7 +32,7 @@ Router::get('/office/all', function (Request $request, Response $response) {
 });
 
 Router::get('/office/([0-9]*)', function (Request $request, Response $response) {
-    $office = (new ShoperDistanceApi())->getById((int)$request->params[0]);
+    $office = (new ShoperDistanceApi())->getById((int) $request->params[0]);
 
     if ($office) {
         $response->status(HttpCodes::HTTP_OK)->toJSON(($office));
@@ -40,9 +41,13 @@ Router::get('/office/([0-9]*)', function (Request $request, Response $response) 
     };
 });
 
-Router::get('/office-distance', function (Request $request, Response $response) {
-    $office = Office::add($request->getJSON());
-    $response->status(204)->toJSON($office);
+Router::get('/office-distance/([0-9]*)', function (Request $request, Response $response) {
+    try {
+        (new HereApi())->calculateDistance((int) $request->params[0], $request->getJSON());
+        $response->status(HttpCodes::HTTP_OK)->toJSON('halo');
+    } catch (\Exception $exception) {
+        $response->status($exception->getCode())->toJSON($exception->getMessage());
+    }
 });
 
 Router::post('/office', function (Request $request, Response $response) {
