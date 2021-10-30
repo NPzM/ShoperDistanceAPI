@@ -57,9 +57,15 @@ class Database
         return $result->num_rows > 0 ? $result : null;
     }
 
-    /**
-    * Metoda do usuwania wpisu w bazie na podstawie identyfikatora.
-    */
+    public function getById(int $id): ?object
+    {
+        $sql = sprintf('SELECT * FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
+
+        $result = $this->database->query($sql);
+
+        return $result->num_rows > 0 ? $result : null;
+    }
+
     public function deleteById(int $id): void
     {
         $sql = sprintf('DELETE FROM "%s" WHERE id="%d"', self::DATABASE_TABLE, $id);
@@ -76,38 +82,22 @@ class Database
     /**
     * Metoda do dodawania wpisu do bazy danych.
     */
-    public function insert($json): void
+    public function insert($parameters)
     {
-        $sql = sprintf('INSERT INTO %s (`city`, `street`, `latitude`, `longitude`) VALUES
-        (%s, %s, %s, %s)', self::DATABASE_TABLE, $city, $street, $latitude, $longitude);
+        $sql = sprintf('INSERT INTO %s (`street`, `city`, `latitude`, `longitude`) VALUES
+        (%s, %s, %s, %s)', self::DATABASE_TABLE, $parameters['street'], $parameters['city'], $parameters['latitude'], $parameters['longitude']);
 
-        if ($database->query($sql) === TRUE) {
+    $dbq = $database->query($sql);
+
+        var_dump($dbq);
+
+        if ($dbq === TRUE) {
         echo "New record created successfully";
         } else {
             throw new \Exception("Error: " . $sql . "<br>" . $database->error, HttpCodes::HTTP_NOT_FOUND);
         }
 
         $database->close();
-    }
-
-    /**
-    * Metoda
-    */
-    public function select(int $id): ?array
-    {
-        $sql = sprintf('SELECT "%s" FROM "%s"', $id, self::DATABASE_TABLE);
-
-        $result = $database->query($sql);
-
-        if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {
-            echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-          }
-        } else {
-          echo "0 results";
-        }
-
-        return $results ?? null;
     }
 
     /**

@@ -20,4 +20,9 @@ abstract class AbstractManagement
         $this->logger = Logger::getInstance();
         $this->database = new Database();
     }
+
+    public function run()
+    {
+        Logger::enableSystemLogs();
+    }
 }

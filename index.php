@@ -11,43 +11,50 @@ use ShoperPL\ShoperDistanceAPI\Response;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
 
-Router::delete('/office', function (Request $request, Response $respone) {
+Router::delete('/office([0-9]*', function (Request $request, Response $response) {
     $office = Office::delete($request->getJSON());
-    $respone->status(204)->toJSON($office);
+    $response->status(204)->toJSON($office);
 });
 
-Router::get('/office/all', function (Request $request, Response $respone) {
+Router::get('/office/all', function (Request $request, Response $response) {
     $offices = (new ShoperDistanceApi())->getAll();
 
     if (!empty($offices)) {
-        $respone->status(HttpCodes::HTTP_OK)->toJSON((new ShoperDistanceApi())->getAll());
+        $response->status(HttpCodes::HTTP_OK)->toJSON($offices);
     } else {
-        $respone->status(HttpCodes::HTTP_NOT_FOUND)->toJSON(['error' => "Nieznalezione"]);
+        $response->status(HttpCodes::HTTP_NOT_FOUND)->toJSON(['error' => "Nieznalezione"]);
     };
 });
 
-Router::get('/office/([0-9]*)', function (Request $request, Response $respone) {
-    $office = Office::findById($request->params[0]);
+Router::get('/office/([0-9]*)', function (Request $request, Response $response) {
+    $office = (new ShoperDistanceApi())->getById((int)$request->params[0]);
+
     if ($office) {
-        $respone->toJSON($office);
+        $response->status(HttpCodes::HTTP_OK)->toJSON(($office));
     } else {
-        $respone->status(404)->toJSON(['error' => "Not Found"]);
-    }
+        $response->status(HttpCodes::HTTP_NOT_FOUND)->toJSON(['error' => "Nieznalezione"]);
+    };
 });
 
-Router::get('/office-distance', function (Request $request, Response $respone) {
+Router::get('/office-distance', function (Request $request, Response $response) {
     $office = Office::add($request->getJSON());
-    $respone->status(204)->toJSON($office);
+    $response->status(204)->toJSON($office);
 });
 
-Router::post('/office', function (Request $request, Response $respone) {
-    $office = Office::add($request->getJSON());
-    $respone->status(204)->toJSON($office);
+Router::post('/office', function (Request $request, Response $response) {
+    (new ShoperDistanceApi())->add($request);
+
+    $response->status(HttpCodes::HTTP_OK)->toJSON(($response->toJSON()));
+    // if ($office) {
+    //     $respone->status(HttpCodes::HTTP_OK)->toJSON(($office));
+    // } else {
+    //     $respone->status(HttpCodes::HTTP_NOT_FOUND)->toJSON(['error' => "Nieznalezione"]);
+    // };
 });
 
-Router::put('/office', function (Request $request, Response $respone) {
+Router::put('/office', function (Request $request, Response $response) {
     $office = Office::put($request->getJSON());
-    $respone->status(204)->toJSON($office);
+    $response->status(204)->toJSON($office);
 });
 
 (new shoperDistanceApi())->run();

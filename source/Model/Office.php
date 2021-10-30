@@ -32,32 +32,12 @@ class Office
      */
     public $longitude;
 
-    public function __construct(int $id, string $city, string $street, string $latitude, string $longitude)
+    public function __construct(string $city, string $street, string $latitude, string $longitude, int $id = null)
     {
         $this->id = $id;
         $this->city = $city;
         $this->street = $street;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-    }
-
-    public static function all(): ?object
-    {
-        return $this->database->all();
-    }
-
-    public static function add()
-    {
-
-    }
-
-    public static function delete()
-    {
-        return self::$offices;
-    }
-
-    public static function update()
-    {
-        return self::$offices;
     }
 }

@@ -5,7 +5,7 @@ namespace ShoperPL\ShoperDistanceAPI;
 
 class Response
 {
-    private $status = 404;
+    private $status = 200;
 
     public function status(int $code)
     {
