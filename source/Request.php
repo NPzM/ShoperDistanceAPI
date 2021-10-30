@@ -18,7 +18,7 @@ class Request
 
     public function getBody()
     {
-        if ($this->reqMethod !== 'POST') {
+        if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
             return '';
         }
 
@@ -32,7 +32,7 @@ class Request
 
     public function getJSON()
     {
-        if ($this->reqMethod !== 'POST') {
+        if ($this->reqMethod !== 'POST' && $this->reqMethod !== 'PATCH') {
             return [];
         }
 

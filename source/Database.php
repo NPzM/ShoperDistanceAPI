@@ -48,6 +48,9 @@ class Database
         $this->connect();
     }
 
+    /**
+    * Metoda do pobierania wszystkich adresów firmy.
+    */
     public function all(): ?object
     {
         $sql = sprintf('SELECT * FROM %s', self::DATABASE_TABLE);
@@ -57,6 +60,9 @@ class Database
         return $result->num_rows > 0 ? $result : null;
     }
 
+    /**
+    * Metoda do pobierania adresu firmy na podstawie ID.
+    */
     public function getById(int $id): ?object
     {
         $sql = sprintf('SELECT * FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
@@ -66,54 +72,45 @@ class Database
         return $result->num_rows > 0 ? $result : null;
     }
 
+    /**
+    * Metoda do usuwania wpisu z bazy danych na podstawie identyfikatora.
+    */
     public function deleteById(int $id): void
     {
-        $sql = sprintf('DELETE FROM "%s" WHERE id="%d"', self::DATABASE_TABLE, $id);
+        $sql = sprintf('DELETE FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
 
         if ($this->database->query($sql) === TRUE) {
-            echo "Record deleted successfully";
-          } else {
-            throw new \Exception('Deleting row error', HttpCodes::HTTP_NOT_FOUND);
+        } else {
+            throw new \Exception("Error: " . $sql . "<br>" . $this->database->error, HttpCodes::HTTP_SERVICE_UNAVAILABLE);
         }
-
-        $this->database->close();
     }
 
     /**
     * Metoda do dodawania wpisu do bazy danych.
     */
-    public function insert($parameters)
+    public function insert($parameters): void
     {
-        $sql = sprintf('INSERT INTO %s (`street`, `city`, `latitude`, `longitude`) VALUES
-        (%s, %s, %s, %s)', self::DATABASE_TABLE, $parameters['street'], $parameters['city'], $parameters['latitude'], $parameters['longitude']);
+        $sql = sprintf('INSERT INTO %s (street, city, latitude, longitude) VALUES ("%s", "%s", "%s", "%s")',
+        self::DATABASE_TABLE, $parameters->street, $parameters->city, $parameters->latitude, $parameters->longitude);
 
-    $dbq = $database->query($sql);
-
-        var_dump($dbq);
-
-        if ($dbq === TRUE) {
-        echo "New record created successfully";
+        if ($this->database->query($sql) === TRUE) {
         } else {
-            throw new \Exception("Error: " . $sql . "<br>" . $database->error, HttpCodes::HTTP_NOT_FOUND);
+            throw new \Exception("Error: " . $sql . "<br>" . $this->database->error, HttpCodes::HTTP_SERVICE_UNAVAILABLE);
         }
-
-        $database->close();
     }
 
     /**
-    * Metoda odpowiedzialna za aktualizację obiektu encji w bazie danych
+    * Metoda odpowiedzialna za aktualizację wpisu w bazie danych.
     */
-    public function update($json): void
+    public function update($parameters): void
     {
-        $sql = sprintf('UPDATE FROM "%s" WHERE id="%d" SET', self::DATABASE_TABLE, $id);
+        $sql = sprintf("UPDATE %s SET street='%s', city='%s', latitude='%s', longitude='%s' WHERE id=%s",
+        self::DATABASE_TABLE, $parameters->street, $parameters->city, $parameters->latitude, $parameters->longitude, $parameters->id);
 
-        if ($database->query($sql) === TRUE) {
-          echo "Record updated successfully";
+        if ($this->database->query($sql) === TRUE) {
         } else {
-          throw new \Exception("Error updating record: " . $database->error, HttpCodes::HTTP_NOT_FOUND);
+            throw new \Exception("Error: " . $sql . "<br>" . $this->database->error, HttpCodes::HTTP_SERVICE_UNAVAILABLE);
         }
-
-        $this->database->close();
     }
 
     public function __destruct() {

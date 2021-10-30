@@ -50,9 +50,9 @@ class Router
         self::on($route, $callback);
     }
 
-    public static function put($route, $callback)
+    public static function patch($route, $callback)
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'PUT') !== 0) {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'PATCH') !== 0) {
             return;
         }
 

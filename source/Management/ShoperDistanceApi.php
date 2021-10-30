@@ -15,13 +15,11 @@ class ShoperDistanceApi extends AbstractManagement
     }
 
     /**
-     * Pobieranie wszystkich biur Shoper'a w bazie danych
+     * Dodawanie biura do bazy danych
      */
-    public function add(Request $request)
+    public function add(object $parameters)
     {
         $this->logger->info('Rozpoczęcie dodawania nowego adresu firmy');
-
-        $parameters = $request->getJSON();
 
         // $validate = $this->validate($request->getJSON());
         // if ($validate['valid'] === false) {
@@ -32,9 +30,33 @@ class ShoperDistanceApi extends AbstractManagement
 
         // var_dump($newOffice);
 
-        $this->database->insert($request->getJSON());
+        try {
+            $this->database->insert($parameters);
+        } catch (\Exception $exception) {
+            $this->logger->error('Dodanie nowego adresu firmy zakończyło się błędem');
+
+            throw $exception;
+        }
 
         $this->logger->info('Dodanie nowego adresu firmy zakończyło się pomyślnie');
+    }
+
+    /**
+     * Pobieranie wszystkich biur Shoper'a w bazie danych
+     */
+    public function delete(int $id)
+    {
+        $this->logger->info('Rozpoczęcie usuwania adresu firmy');
+
+        try {
+            $this->database->deleteById($id);
+        } catch (\Exception $exception) {
+            $this->logger->error('Usuwanie adresu firmy zakończyło się błędem');
+
+            throw $exception;
+        }
+
+        $this->logger->info('Usuwanie adresu firmy zakończyło się pomyślnie');
     }
 
     /**
@@ -76,6 +98,33 @@ class ShoperDistanceApi extends AbstractManagement
         $this->logger->info('Pobranie informacji zakończyło się sukcesem');
 
         return $office;
+    }
+
+    /**
+     * Aktualizacja lokalizacji biura
+     */
+    public function update(object $parameters)
+    {
+        $this->logger->info('Rozpoczęcie aktualizacji adresu firmy');
+
+        // $validate = $this->validate($request->getJSON());
+        // if ($validate['valid'] === false) {
+        //     return $validate;
+        // };
+
+        // $newOffice = new Office($parameters['street'], $parameters['city'], $latitude['street'], $parameters['longitude']);
+
+        // var_dump($newOffice);
+
+        try {
+            $this->database->update($parameters);
+        } catch (\Exception $exception) {
+            $this->logger->error('Aktualizacja adresu firmy zakończyło się błędem');
+
+            throw $exception;
+        }
+
+        $this->logger->info('Aktualizacja adresu firmy zakończyło się pomyślnie');
     }
 
     private function validate(object $object)
