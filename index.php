@@ -43,8 +43,9 @@ Router::get('/office/([0-9]*)', function (Request $request, Response $response) 
 
 Router::get('/office-distance/([0-9]*)', function (Request $request, Response $response) {
     try {
-        (new HereApi())->calculateDistance((int) $request->params[0], $request->getJSON());
-        $response->status(HttpCodes::HTTP_OK)->toJSON('halo');
+        $distanceInformations = (new HereApi())->calculateDistance((int) $request->params[0], $request->getJSON());
+
+        $response->status(HttpCodes::HTTP_OK)->toJSON($distanceInformations);
     } catch (\Exception $exception) {
         $response->status($exception->getCode())->toJSON($exception->getMessage());
     }

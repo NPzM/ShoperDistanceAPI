@@ -9,9 +9,7 @@ use ShoperPL\ShoperDistanceAPI\Model\Spot;
 
 class HereApiClient
 {
-    const DISTANCE_UNIT = 'meters';
     const HOST_NAME = 'https://router.hereapi.com/v8';
-
     const TRANSPORT_TYPE = 'car';
 
     /**
