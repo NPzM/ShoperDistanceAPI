@@ -28,7 +28,7 @@ trait ValidatorTrait
         if (!isset($parameters->street) && in_array(RequiredParameters::REQUIRED_STREET, $model, true)) {
             $this->logger->error('Brak parametru street w formularzu!');
 
-            throw new \Exception('Brak parametru citstreety w formularzu!', HttpCodes::HTTP_BAD_REQUEST);
+            throw new \Exception('Brak parametru street w formularzu!', HttpCodes::HTTP_BAD_REQUEST);
         }
 
         if (!isset($parameters->latitude) && in_array(RequiredParameters::REQUIRED_LATITUDE, $model, true)) {
@@ -55,16 +55,16 @@ trait ValidatorTrait
      */
     public function validateParameters(object $parameters): bool
     {
-        if (isset($parameters->city) && !preg_match(RegularExpression::REGEX_ONLY_LETTERS, $parameters->city)) {
+        if (isset($parameters->city) && !preg_match(RegularExpression::REGEX_CITY, $parameters->city)) {
             $this->logger->error('Niepomyślna walidacja parametru city');
 
             throw new \Exception('Parametr city może mieć tylko litery!', HttpCodes::HTTP_BAD_REQUEST);
         }
 
-        if (isset($parameters->street) && !preg_match(RegularExpression::REGEX_ONLY_LETTERS, $parameters->street)) {
+        if (isset($parameters->street) && !preg_match(RegularExpression::REGEX_STREET, $parameters->street)) {
             $this->logger->error('Niepomyślna walidacja parametru street');
 
-            throw new \Exception('Parametr street może mieć tylko litery!', HttpCodes::HTTP_BAD_REQUEST);
+            throw new \Exception('Parametr street może mieć tylko litery i cyfry!', HttpCodes::HTTP_BAD_REQUEST);
         }
 
         if (isset($parameters->latitude) && !preg_match(RegularExpression::REGEX_COORDINATES, $parameters->latitude)) {

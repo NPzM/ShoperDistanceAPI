@@ -10,5 +10,6 @@ namespace ShoperPL\ShoperDistanceAPI\Constants;
 class RegularExpression
 {
     const REGEX_COORDINATES = '/^(\-?|\+?)?\d+(\.\d+)?$/';
-    const REGEX_ONLY_LETTERS = '/^[a-zA-Z]+$/';
+    const REGEX_CITY = '/^[a-zA-Z]*$/';
+    const REGEX_STREET = '/^[a-zA-Z0-9 ]*$/';
 }

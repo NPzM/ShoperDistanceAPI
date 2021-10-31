@@ -8,6 +8,7 @@ use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Request;
 use ShoperPL\ShoperDistanceAPI\Traits\ValidatorTrait;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
 
 /**
 * Klasa do zarządania ShoperDistanceApi.
@@ -16,9 +17,18 @@ class ShoperDistanceApi extends AbstractManagement
 {
     use ValidatorTrait;
 
-    public function __construct()
+    /**
+    * @var Database
+    */
+    protected $database;
+
+    public function __construct($database = null)
     {
         parent::__construct();
+
+        if (is_null($database)) {
+            $this->database = new Database();
+        }
     }
 
     /**

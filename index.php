@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
 use ShoperPL\ShoperDistanceAPI\Managements\ShoperDistanceApi;
 use ShoperPL\ShoperDistanceAPI\Managements\HereApi;
 use ShoperPL\ShoperDistanceAPI\Router;
@@ -14,6 +11,9 @@ use ShoperPL\ShoperDistanceAPI\Request;
 use ShoperPL\ShoperDistanceAPI\Response;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 Router::delete('/office/([0-9]*)', function (Request $request, Response $response) {
     try {
