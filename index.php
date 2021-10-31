@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
-use ShoperPL\ShoperDistanceAPI\Management\ShoperDistanceApi;
-use ShoperPL\ShoperDistanceAPI\Management\HereApi;
+use ShoperPL\ShoperDistanceAPI\Managements\ShoperDistanceApi;
+use ShoperPL\ShoperDistanceAPI\Managements\HereApi;
 use ShoperPL\ShoperDistanceAPI\Router;
 use ShoperPL\ShoperDistanceAPI\Request;
 use ShoperPL\ShoperDistanceAPI\Response;

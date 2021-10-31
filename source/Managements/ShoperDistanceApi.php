@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ShoperPL\ShoperDistanceAPI\Management;
+namespace ShoperPL\ShoperDistanceAPI\Managements;
 
-use ShoperPL\ShoperDistanceAPI\Management\AbstractManagement;
+use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Request;
 

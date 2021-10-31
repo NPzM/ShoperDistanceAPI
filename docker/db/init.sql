@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS database_shoper_distance_api.`office`
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `office` (`city`, `street`, `latitude`, `longitude`) VALUES
-('Szczecin', 'Cyfrowa 8', '53.45086095', '14.53644447'),
-('Kraków', 'Pawia 9', '50.07048609', '19.94635587');
+('Szczecin', 'Cyfrowa 8', '53.45086195', '14.53644668'),
+('Kraków', 'Pawia 9', '50.0703023', '19.946085');

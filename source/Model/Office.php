@@ -3,7 +3,7 @@
 namespace ShoperPL\ShoperDistanceAPI\Model;
 
 use ShoperPL\ShoperDistanceAPI\Config;
-use ShoperPL\ShoperDistanceAPI\Database;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
 use ShoperPL\ShoperDistanceAPI\Model\AbstractModel;
 
 class Office extends AbstractModel

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ShoperPL\ShoperDistanceAPI\Management;
+namespace ShoperPL\ShoperDistanceAPI\Managements;
 
-use ShoperPL\ShoperDistanceAPI\Database;
-use ShoperPL\ShoperDistanceAPI\Management\AbstractManagement;
-use ShoperPL\ShoperDistanceAPI\Management\ShoperDistanceApi;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
+use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
+use ShoperPL\ShoperDistanceAPI\Managements\ShoperDistanceApi;
 use ShoperPL\ShoperDistanceAPI\Model\Spot;
-use ShoperPL\ShoperDistanceAPI\HereApiClient;
+use ShoperPL\ShoperDistanceAPI\Clients\HereApiClient;
 
 class HereApi extends AbstractManagement
 {

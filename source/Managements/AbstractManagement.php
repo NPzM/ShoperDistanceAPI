@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ShoperPL\ShoperDistanceAPI\Management;
+namespace ShoperPL\ShoperDistanceAPI\Managements;
 
 use ShoperPL\ShoperDistanceAPI\Logger;
-use ShoperPL\ShoperDistanceAPI\Database;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
 
 abstract class AbstractManagement
 {

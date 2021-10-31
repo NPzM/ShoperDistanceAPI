@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ShoperPL\ShoperDistanceAPI;
+namespace ShoperPL\ShoperDistanceAPI\Repository;
 
 use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
 
