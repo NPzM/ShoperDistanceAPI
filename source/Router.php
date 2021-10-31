@@ -41,18 +41,18 @@ class Router
         }
     }
 
-    public static function post($route, $callback)
+    public static function patch($route, $callback)
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') !== 0) {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'PATCH') !== 0) {
             return;
         }
 
         self::on($route, $callback);
     }
 
-    public static function patch($route, $callback)
+    public static function post($route, $callback)
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'PATCH') !== 0) {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') !== 0) {
             return;
         }
 

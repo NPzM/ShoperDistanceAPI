@@ -1,17 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace ShoperPL\ShoperDistanceAPI\Clients;
 
+use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Model\Spot;
-use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
 
 class HereApiClient
 {
+    const DISTANCE_UNIT = 'meters';
     const HOST_NAME = 'https://router.hereapi.com/v8';
 
     const TRANSPORT_TYPE = 'car';
-    const DISTANCE_UNIT = 'meters';
 
     /**
      *  @var string wartość klucza używana do autoryzacji przez api
@@ -31,7 +32,7 @@ class HereApiClient
         $curl = curl_init();
         $url = $this->generateURL($office->getCoordinates(),  $spot->getCoordinates());
 
-        $defaults = array(
+        $defaults = [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
@@ -39,14 +40,15 @@ class HereApiClient
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        );
+        ];
 
         curl_setopt_array($curl, $defaults);
         $response = curl_exec($curl);
 
         if (curl_errno($curl)) {
             throw new \Exception('Błąd podczas ostatniej operacji cURL', HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
-        } elseif (curl_getinfo($curl, CURLINFO_HTTP_CODE !== 200)) {
+        }
+        if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200) {
             throw new \Exception("Błąd HereAPI" . "<br>" . $response, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
 

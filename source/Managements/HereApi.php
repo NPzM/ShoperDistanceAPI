@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace ShoperPL\ShoperDistanceAPI\Managements;
 
-use ShoperPL\ShoperDistanceAPI\Repository\Database;
+use ShoperPL\ShoperDistanceAPI\Clients\HereApiClient;
 use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
 use ShoperPL\ShoperDistanceAPI\Managements\ShoperDistanceApi;
 use ShoperPL\ShoperDistanceAPI\Model\Spot;
-use ShoperPL\ShoperDistanceAPI\Clients\HereApiClient;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
 
 class HereApi extends AbstractManagement
 {

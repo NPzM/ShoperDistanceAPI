@@ -16,13 +16,13 @@ abstract class AbstractModel
      */
     public $longitude;
 
-    public function run()
-    {
-        Logger::enableSystemLogs();
-    }
-
     public function getCoordinates(): string
     {
         return "{$this->latitude},{$this->longitude}";
+    }
+
+    public function run()
+    {
+        Logger::enableSystemLogs();
     }
 }

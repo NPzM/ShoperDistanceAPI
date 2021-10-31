@@ -48,24 +48,16 @@ class Database
         $this->connect();
     }
 
+    public function __destruct() {
+        $this->disconnect();
+    }
+
     /**
     * Metoda do pobierania wszystkich adresów firmy.
     */
     public function all(): ?object
     {
         $sql = sprintf('SELECT * FROM %s', self::DATABASE_TABLE);
-
-        $result = $this->database->query($sql);
-
-        return $result->num_rows > 0 ? $result : null;
-    }
-
-    /**
-    * Metoda do pobierania adresu firmy na podstawie ID.
-    */
-    public function getById(int $id): ?object
-    {
-        $sql = sprintf('SELECT * FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
 
         $result = $this->database->query($sql);
 
@@ -83,6 +75,18 @@ class Database
         } else {
             throw new \Exception("Error: " . $sql . "<br>" . $this->database->error, HttpCodes::HTTP_SERVICE_UNAVAILABLE);
         }
+    }
+
+    /**
+    * Metoda do pobierania adresu firmy na podstawie ID.
+    */
+    public function getById(int $id): ?object
+    {
+        $sql = sprintf('SELECT * FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
+
+        $result = $this->database->query($sql);
+
+        return $result->num_rows > 0 ? $result : null;
     }
 
     /**
@@ -111,10 +115,6 @@ class Database
         } else {
             throw new \Exception("Error: " . $sql . "<br>" . $this->database->error, HttpCodes::HTTP_SERVICE_UNAVAILABLE);
         }
-    }
-
-    public function __destruct() {
-        $this->disconnect();
     }
 
     private function connect(): void
