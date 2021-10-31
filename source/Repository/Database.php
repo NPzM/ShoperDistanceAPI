@@ -40,10 +40,10 @@ class Database
 
     public function __construct()
     {
-        $this->host = "db";
-        $this->username = 'shoper_distance_api';
-        $this->password = 'Ad2mrZEv';
-        $this->name = 'database_shoper_distance_api';
+        $this->host = $_ENV['MYSQL_HOST'];
+        $this->username = $_ENV['MYSQL_USER'];
+        $this->password = $_ENV['MYSQL_PASSWORD'];
+        $this->name = $_ENV['MYSQL_DATABASE'];
 
         $this->connect();
     }
@@ -117,15 +117,21 @@ class Database
         }
     }
 
+    /**
+    * Połączenie do bazy danych.
+    */
     private function connect(): void
     {
         $this->database = new \mysqli($this->host, $this->username, $this->password, $this->name);
 
         if ($this->database->connect_error) {
-            throw new \Exception("Connection failed: " . $this->database->connect_error, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
+            throw new \Exception("Błąd połączenia z bazą danych: " . $this->database->connect_error, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+    * Rozłączenie się bazą danych.
+    */
     private function disconnect(): void
     {
         if (isset($this->database)) {

@@ -7,12 +7,16 @@ use ShoperPL\ShoperDistanceAPI\Config;
 use ShoperPL\ShoperDistanceAPI\Model\AbstractModel;
 use ShoperPL\ShoperDistanceAPI\Repository\Database;
 
+/**
+* Klasa modelu biura Shoper'a
+*/
 class Office extends AbstractModel
 {
     /**
      * @var string city miasto
      */
     public $city;
+
     /**
      * @var int id indentyfikator
      */
@@ -30,5 +34,15 @@ class Office extends AbstractModel
         $this->street = $street;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function getStreet()
+    {
+        return $this->street;
     }
 }

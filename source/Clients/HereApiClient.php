@@ -7,25 +7,40 @@ use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Model\Spot;
 
+/**
+* Klient do HereApi.
+*/
 class HereApiClient
 {
+    /**
+     * @var string host HereApi
+     */
     const HOST_NAME = 'https://router.hereapi.com/v8';
+
+    /**
+     * @var string typ transportu
+     */
     const TRANSPORT_TYPE = 'car';
 
     /**
-     *  @var string wartość klucza używana do autoryzacji przez api
+     * @var string wartość klucza używana do autoryzacji w HereApi
     */
     private $apiKey;
 
     public function __construct()
     {
-        $this->apiKey = 'PbSPQq4YDif8MxnuWlBh0CdVoooypjfiETGwwkEAcZk';
+        $this->apiKey = $_ENV['HERE_API_KEY'];
     }
 
     /**
-    * Metoda komunikuje się z HereApi i zwraca informacje na temat odległości i czasu podróży między dwoma punktami.
-    */
-    public function getDistance(Office $office, Spot $spot)
+     * Metoda komunikuje się z HereApi i zwraca informacje na temat odległości i czasu podróży między dwoma punktami.
+     *
+     * @param Office $office biuro
+     * @param Spot $spot punkt
+     *
+     * @return string response
+     */
+    public function getDistance(Office $office, Spot $spot): string
     {
         $curl = curl_init();
         $url = $this->generateURL($office->getCoordinates(),  $spot->getCoordinates());
@@ -47,13 +62,22 @@ class HereApiClient
             throw new \Exception('Błąd podczas ostatniej operacji cURL', HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200) {
-            throw new \Exception("Błąd HereAPI" . "<br>" . $response, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
+            throw new \Exception("Błąd HereAPI" . $response, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $response;
     }
 
-    private function generateURL(string $officeCoordinates, string $spotCoordinates) {
+    /**
+     * Generuje url do HereApi.
+     *
+     * @param string $officeCoordinates współrzędne biura
+     * @param string $spotCoordinates współrzędne punktu
+     *
+     * @return string url
+     */
+    private function generateURL(string $officeCoordinates, string $spotCoordinates): string
+    {
         return sprintf('%s/routes?transportMode=%s&origin=%s&destination=%s&return=summary&apiKey=%s',
         self::HOST_NAME, self::TRANSPORT_TYPE, $officeCoordinates, $spotCoordinates, $this->apiKey);
     }

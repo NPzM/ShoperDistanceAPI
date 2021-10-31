@@ -3,34 +3,36 @@ declare(strict_types=1);
 
 namespace ShoperPL\ShoperDistanceAPI\Managements;
 
+use ShoperPL\ShoperDistanceAPI\Constants\RequiredParameters;
 use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
 use ShoperPL\ShoperDistanceAPI\Request;
+use ShoperPL\ShoperDistanceAPI\Traits\ValidatorTrait;
 
+/**
+* Klasa do zarządania ShoperDistanceApi.
+*/
 class ShoperDistanceApi extends AbstractManagement
 {
+    use ValidatorTrait;
+
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * Dodawanie biura do bazy danych
+     * Dodawanie biura do bazy danych.
+     *
+     * @param object $parameters parametry
      */
-    public function add(object $parameters)
+    public function add(object $parameters): void
     {
         $this->logger->info('Rozpoczęcie dodawania nowego adresu firmy');
 
-        // $validate = $this->validate($request->getJSON());
-        // if ($validate['valid'] === false) {
-        //     return $validate;
-        // };
-
-        // $newOffice = new Office($parameters['street'], $parameters['city'], $latitude['street'], $parameters['longitude']);
-
-        // var_dump($newOffice);
-
         try {
+            $this->checkRequiredParameters($parameters, RequiredParameters::OFFICE);
+            $this->validateParameters($parameters);
             $this->database->insert($parameters);
         } catch (\Exception $exception) {
             $this->logger->error('Dodanie nowego adresu firmy zakończyło się błędem');
@@ -42,9 +44,11 @@ class ShoperDistanceApi extends AbstractManagement
     }
 
     /**
-     * Pobieranie wszystkich biur Shoper'a w bazie danych
+     * Usuwanie biura na podstawie identyfikatora.
+     *
+     * @param int $id indetyfikator biura
      */
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $this->logger->info('Rozpoczęcie usuwania adresu firmy');
 
@@ -61,6 +65,8 @@ class ShoperDistanceApi extends AbstractManagement
 
     /**
      * Pobieranie wszystkich biur Shoper'a w bazie danych
+     *
+     * @return array/null offices wszystkie biura
      */
     public function getAll(): ?array
     {
@@ -77,7 +83,11 @@ class ShoperDistanceApi extends AbstractManagement
     }
 
     /**
-     * Pobieranie biura na podstawie identyfikatora
+     * Pobieranie biura na podstawie identyfikatora.
+     *
+     * @param int $id indetyfikator biura
+     *
+     * @return Office/null office biuro
      */
     public function getById(int $id): ?Office
     {
@@ -105,22 +115,17 @@ class ShoperDistanceApi extends AbstractManagement
     }
 
     /**
-     * Aktualizacja lokalizacji biura
+     * Aktualizacja lokalizacji biura.
+     *
+     * @param object $parameters parametry
      */
-    public function update(object $parameters)
+    public function update(object $parameters): void
     {
         $this->logger->info('Rozpoczęcie aktualizacji adresu firmy');
 
-        // $validate = $this->validate($request->getJSON());
-        // if ($validate['valid'] === false) {
-        //     return $validate;
-        // };
-
-        // $newOffice = new Office($parameters['street'], $parameters['city'], $latitude['street'], $parameters['longitude']);
-
-        // var_dump($newOffice);
-
         try {
+            $this->checkRequiredParameters($parameters, RequiredParameters::OFFICE);
+            $this->validateParameters($parameters);
             $this->database->update($parameters);
         } catch (\Exception $exception) {
             $this->logger->error('Aktualizacja adresu firmy zakończyło się błędem');
@@ -129,21 +134,5 @@ class ShoperDistanceApi extends AbstractManagement
         }
 
         $this->logger->info('Aktualizacja adresu firmy zakończyło się pomyślnie');
-    }
-
-    private function validate(object $object)
-    {
-        $notValid = [];
-        if(!isset($object->street)) {
-            $notValid[] = 'Brak "street" w body';
-        };
-
-        if (!empty($notValid)) {
-            $this->logger->error('Brak parametrów', $notValid);
-
-            return ['valid' => false, 'notValid' => $notValid];
-        }
-
-        return ['valid' => true, 'notValid' =>$notValid];
     }
 }

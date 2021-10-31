@@ -21,8 +21,13 @@ abstract class AbstractModel
         return "{$this->latitude},{$this->longitude}";
     }
 
-    public function run()
+    public function getLatitude()
     {
-        Logger::enableSystemLogs();
+        return $this->latitude;
+    }
+
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 }
