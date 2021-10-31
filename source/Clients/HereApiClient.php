@@ -61,7 +61,7 @@ class HereApiClient
         if (curl_errno($curl)) {
             throw new \Exception('Błąd podczas ostatniej operacji cURL', HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
-        if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200) {
+        if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== HttpCodes::HTTP_OK) {
             throw new \Exception("Błąd HereAPI" . $response, HttpCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
 
