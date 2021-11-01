@@ -13,6 +13,8 @@ class RequiredParameters
      * Zestawy wymaganych parametrów dla modeli.
      */
     const OFFICE = ['street', 'city', 'latitude', 'longitude'];
+    const SPOT = ['latitude', 'longitude'];
+
     /**
      * Stałe wymaganych parametrów.
      */
@@ -20,5 +22,4 @@ class RequiredParameters
     const REQUIRED_LATITUDE = 'latitude';
     const REQUIRED_LONGITUDE = 'longitude';
     const REQUIRED_STREET = 'street';
-    const SPOT = ['latitude', 'longitude'];
 }

@@ -6,9 +6,9 @@ namespace ShoperPL\ShoperDistanceAPI\Managements;
 use ShoperPL\ShoperDistanceAPI\Constants\RequiredParameters;
 use ShoperPL\ShoperDistanceAPI\Managements\AbstractManagement;
 use ShoperPL\ShoperDistanceAPI\Model\Office;
+use ShoperPL\ShoperDistanceAPI\Repository\Database;
 use ShoperPL\ShoperDistanceAPI\Request;
 use ShoperPL\ShoperDistanceAPI\Traits\ValidatorTrait;
-use ShoperPL\ShoperDistanceAPI\Repository\Database;
 
 /**
 * Klasa do zarządania ShoperDistanceApi.
@@ -28,6 +28,8 @@ class ShoperDistanceApi extends AbstractManagement
 
         if (is_null($database)) {
             $this->database = new Database();
+        } else {
+            $this->database = $database;
         }
     }
 

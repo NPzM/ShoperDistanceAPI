@@ -18,6 +18,9 @@ class Response
         http_response_code($this->status);
         header('Content-Type: application/json');
 
-        echo is_array($data) ? json_encode($data, JSON_PRETTY_PRINT) : json_encode([$data], JSON_PRETTY_PRINT);
+        $encoded = is_array($data) ? json_encode($data, JSON_PRETTY_PRINT) : json_encode([$data], JSON_PRETTY_PRINT);
+
+        //Zapobieganie XSS
+        echo htmlspecialchars($encoded, ENT_XHTML, 'UTF-8', false);
     }
 }
