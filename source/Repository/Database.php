@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShoperPL\ShoperDistanceAPI\Repository;
 
 use ShoperPL\ShoperDistanceAPI\Constants\HttpCodes;
+use ShoperPL\ShoperDistanceAPI\Model\Office;
 
 /**
 * Klasa do połączenia się z bazą danych oraz operacji na niej
@@ -55,13 +56,20 @@ class Database
     /**
     * Metoda do pobierania wszystkich adresów firmy.
     */
-    public function all(): ?object
+    public function all(): array
     {
         $sql = sprintf('SELECT * FROM %s', self::DATABASE_TABLE);
 
         $result = $this->database->query($sql);
 
-        return $result->num_rows > 0 ? $result : null;
+        $offices = [];
+        if ($result->num_rows > 0) {
+            foreach($result as $row){
+                $offices[] = new Office($row['city'], $row['street'], $row['latitude'], $row['longitude'], (int) $row['id']);
+            }
+        }
+
+        return $offices;
     }
 
     /**
@@ -80,13 +88,19 @@ class Database
     /**
     * Metoda do pobierania adresu firmy na podstawie ID.
     */
-    public function getById(int $id): ?object
+    public function getById(int $id): ?Office
     {
         $sql = sprintf('SELECT * FROM %s WHERE id=%d', self::DATABASE_TABLE, $id);
 
         $result = $this->database->query($sql);
 
-        return $result->num_rows > 0 ? $result : null;
+        if ($result->num_rows > 0) {
+            foreach ($result as $row) {
+                $office = new Office($row['city'], $row['street'], $row['latitude'], $row['longitude'], (int) $row['id']);
+            }
+        }
+
+        return isset($office) ? $office : null;
     }
 
     /**

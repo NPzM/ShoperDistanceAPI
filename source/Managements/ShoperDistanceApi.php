@@ -22,6 +22,7 @@ class ShoperDistanceApi extends AbstractManagement
     */
     protected $database;
 
+    //Opcjonalne parametr na potrzeby testów jednoskowych
     public function __construct($database = null)
     {
         parent::__construct();
@@ -80,16 +81,13 @@ class ShoperDistanceApi extends AbstractManagement
      *
      * @return array/null offices wszystkie biura
      */
-    public function getAll(): ?array
+    public function getAll(): array
     {
         $this->logger->info('Pobieranie informacji o biurach');
 
-        $offices = [];
-        foreach($this->database->all() as $result){
-            $offices[] = new Office($result['city'], $result['street'], $result['latitude'], $result['longitude'], (int) $result['id']);
-        }
+        $offices = $this->database->all();
 
-        $this->logger->info('Pobranie informacji zakończyło się sukcesem');
+        $this->logger->info('Pobranie informacji o biurach zakończyło się sukcesem');
 
         return $offices;
     }
@@ -105,23 +103,15 @@ class ShoperDistanceApi extends AbstractManagement
     {
         $this->logger->info('Pobieranie informacji na temat biura');
 
-        $result = $this->database->getById($id);
+        $office = $this->database->getById($id);
 
-        if (is_null($result)) {
+        if (is_null($office)) {
             $this->logger->info('Nie znaleziono żadnej informacji');
 
-            return $result;
+            return $office;
         };
 
-        foreach ($result as $row) {
-            $office = new Office($row['city'], $row['street'], $row['latitude'], $row['longitude'], (int) $row['id']);
-        }
-
         $this->logger->info('Pobranie informacji zakończyło się sukcesem');
-
-        if (!$office) {
-            throw new \Exception("Nie znaleziono biura", ApiConstants::HTTP_NOT_FOUND);
-        }
 
         return $office;
     }

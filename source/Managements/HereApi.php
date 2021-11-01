@@ -18,12 +18,22 @@ class HereApi extends AbstractManagement
 {
     use ValidatorTrait;
 
-    public function __construct()
+    //Opcjonalne parametry na potrzeby testów jednoskowych
+    public function __construct($client = null, $shoperDistanceApi = null)
     {
         parent::__construct();
 
-        $this->shoperDistanceApi = new ShoperDistanceApi;
-        $this->client = new HereApiClient;
+        if (is_null($shoperDistanceApi)) {
+            $this->shoperDistanceApi = new ShoperDistanceApi;
+        } else {
+            $this->shoperDistanceApi = $shoperDistanceApi;
+        }
+
+        if (is_null($client)) {
+            $this->client = new HereApiClient;
+        } else {
+            $this->client = $client;
+        }
     }
 
     /**
@@ -45,51 +55,18 @@ class HereApi extends AbstractManagement
 
             $office = $this->shoperDistanceApi->getById($id);
             $spot = new Spot($parameters->latitude, $parameters->longitude);
-            $informations['distance'] = $this->decodeResponse($this->client->getDistance($office, $spot));
+            $informations['distance'] = $this->client->getDistance($office, $spot);
         } catch (\Exception $exception) {
             $this->logger->error('Obliczanie odległości do firmy zakończyło się błędem');
 
             throw $exception;
         }
 
-        $informations['office'] = ['City' => $office->getCity(), 'Street' => $office->getStreet()];
+        $informations['office'] = ['city' => $office->getCity(), 'street' => $office->getStreet()];
         $informations['spot'] = $spot->getCoordinates();
 
         $this->logger->info('Obliczanie odległości do firmy zakończyło się sukcesem');
 
         return $informations;
-    }
-
-    /**
-     * Dekodowuje odpowiedź od HereApi na temat odgłości między punktami.
-     *
-     * @param string $response odpowiedź od HereApi
-     *
-     * @return array results rezultaty
-     */
-    private function decodeResponse(string $response): array
-    {
-        $summary = json_decode($response, true)['routes'][0]['sections'][0]['summary'];
-        $length = $summary['length'];
-        $duration = $summary['duration'];
-
-        $results = [];
-        if ($length > 1000) {
-            $km  = floor($length / 1000);
-            $results['length'] = sprintf('%s km', $km);
-        } else {
-            $results['length'] = sprintf('%s m', $length);
-        }
-
-        if ($duration >= 3600) {
-            $hours = floor($duration / 3600);
-            $minutes = floor(($duration / 60) % 60);
-            $results['duration'] = sprintf('%s godzin i %s minut', $hours, $minutes);
-        } else {
-            $minutes = floor(($duration / 60) % 60);
-            $results['duration'] = sprintf('%s minut', $minutes);
-        }
-
-        return $results;
     }
 }
