@@ -4,7 +4,7 @@ z wykorzystaniem HereApi.
 
 ## Autor
 Oktawian Jaworski
-e-mail: oktawian.jaworski2@gmail.com
+oktawian.jaworski2@gmail.com
 
 ## Środowisko lokalne
 Zmienne środowiskowe znajdują się w pliku `.env`
@@ -16,7 +16,7 @@ W głównym katalogu należy użyć komendy:
 $ docker-compose up -d --build
 ```
 
-Środowisko lokalne zostanie uruchomione na adresach
+Środowisko lokalne zostanie uruchomione na adresach:
 - ShoperDistanceApi: `localhost:81`
 - MySQL:5.7: `localhost:82`
 - PhpMyAdmin: `localhost:83`
@@ -27,7 +27,7 @@ W głównym katalogu należy użyć komendy:
 $ docker-compose down
 ```
 
-### Dokumentacja rządań ShoperDistanceApi
+### Dokumentacja żądań ShoperDistanceApi
 
 |           Ścieżka        |  Metoda |                                  JSON BODY                               |         QUERY       |                     OPIS
 |--------------------------|---------|--------------------------------------------------------------------------|---------------------|--------------------------------------------------
@@ -39,7 +39,7 @@ $ docker-compose down
 | /headquarter/{productId} |  PATCH  |{city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|  id = identyfikator |Edycja adresu już isniejącego biura
 
 ## Narzędzia - biblioteki deweloperskie
-Aby użyc narzędzi deweloperskich na początku należy użyć Composer'a
+Aby użyć narzędzi deweloperskich na początku należy skorzystać z Composer'a
 ```bash
 $ composer install
 ```
