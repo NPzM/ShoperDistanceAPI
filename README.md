@@ -27,7 +27,7 @@ W głównym katalogu należy użyć komendy:
 $ docker-compose down
 ```
 
-### Dokumentacja żądań ShoperDistanceApi
+## Dokumentacja żądań ShoperDistanceApi
 
 |           ŚCIEŻKA        |  METODA |                                  JSON BODY                                     |         QUERY       |                     OPIS
 |--------------------------|---------|--------------------------------------------------------------------------------|---------------------|--------------------------------------------------
@@ -37,6 +37,10 @@ $ docker-compose down
 | /office                  |  POST   |{city:"city", street:"street", latitude:"latitude", longitude:"longitude"}      |                     |Dodanie nowego adresu biura
 | /office/{id}             |  DELETE |                                     {}                                         |  id = identyfikator |Usunięcie adresu biura na podstawie identyfikatora
 | /headquarter/{productId} |  PATCH  |{id=1, city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|                     |Edycja adresu już isniejącego biura
+
+###
+Kolekcja żądań do programu `Postman` znajduje się w głównym katalogu:
+`ShoperDistanceApi.postman_collection.json`
 
 ## Narzędzia - biblioteki deweloperskie
 Aby użyć narzędzi deweloperskich na początku należy skorzystać z Composer'a

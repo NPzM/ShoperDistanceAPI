@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "6ef3d5b8-540c-4229-ba87-ffa63eb61e08",
+		"name": "ShoperDistanceApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/office/all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.01:81/office/all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office",
+						"all"
+					]
+				},
+				"description": "Pobranie wszystkich biur zapisanych w bazie danych"
+			},
+			"response": []
+		},
+		{
+			"name": "/office/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.01:81/office/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office",
+						"1"
+					]
+				},
+				"description": "Pobranie biura na podstawie identyfikatora"
+			},
+			"response": []
+		},
+		{
+			"name": "/office",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"city\":\"Testowo\",\n    \"street\":\"Test 8\",\n    \"latitude\":\"53.920177\",\n    \"longitude\":\"15.1829441\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.01:81/office",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office"
+					]
+				},
+				"description": "Dodanie nowego adresu biura"
+			},
+			"response": []
+		},
+		{
+			"name": "/office/3",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":3,\n    \"city\":\"Test\",\n    \"street\":\"Test 123\",\n    \"latitude\":\"53.6719388\",\n    \"longitude\":\"15.1012505\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.01:81/office/3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office",
+						"3"
+					]
+				},
+				"description": "Edycja adresu już isniejącego biura"
+			},
+			"response": []
+		},
+		{
+			"name": "/office/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.01:81/office/3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office",
+						"3"
+					]
+				},
+				"description": "Usunięcie adresu biura na podstawie identyfikatora"
+			},
+			"response": []
+		},
+		{
+			"name": "/office-distance/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"latitude\":\"53.920177\",\n    \"longitude\":\"15.1829441\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.01:81/office-distance/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"01"
+					],
+					"port": "81",
+					"path": [
+						"office-distance",
+						"1"
+					]
+				},
+				"description": "Wyliczenie odległości i czasu podróży od dowolnego miejsca do biura firmy Shoper.pl"
+			},
+			"response": []
+		}
+	]
+}
