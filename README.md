@@ -29,7 +29,7 @@ $ docker-compose down
 
 ### Dokumentacja żądań ShoperDistanceApi
 
-|           Ścieżka        |  Metoda |                                  JSON BODY                               |         QUERY       |                     OPIS
+|           ŚCIEŻKA        |  METODA |                                  JSON BODY                               |         QUERY       |                     OPIS
 |--------------------------|---------|--------------------------------------------------------------------------|---------------------|--------------------------------------------------
 | /office-distance/{id}    |  GET    |               {latitude:"latitude", longitude:"longitude"}               |  id = identyfikator |Wyliczenie odległości i czasu podróży od dowolnego miejsca do biura firmy Shoper.pl
 | /office/all              |  GET    |                                     {}                                   |                     |Pobranie wszystkich biur zapisanych w bazie danych
