@@ -29,14 +29,14 @@ $ docker-compose down
 
 ### Dokumentacja żądań ShoperDistanceApi
 
-|           ŚCIEŻKA        |  METODA |                                  JSON BODY                               |         QUERY       |                     OPIS
-|--------------------------|---------|--------------------------------------------------------------------------|---------------------|--------------------------------------------------
-| /office-distance/{id}    |  GET    |               {latitude:"latitude", longitude:"longitude"}               |  id = identyfikator |Wyliczenie odległości i czasu podróży od dowolnego miejsca do biura firmy Shoper.pl
-| /office/all              |  GET    |                                     {}                                   |                     |Pobranie wszystkich biur zapisanych w bazie danych
-| /office/{id}             |  GET    |                                     {}                                   |  id = identyfikator |Pobranie biura na podstawie identyfikatora
-| /office                  |  POST   |{city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|                     |Dodanie nowego adresu biura
-| /office/{id}             |  DELETE |                                     {}                                   |  id = identyfikator |Usunięcie adresu biura na podstawie identyfikatora
-| /headquarter/{productId} |  PATCH  |{city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|  id = identyfikator |Edycja adresu już isniejącego biura
+|           ŚCIEŻKA        |  METODA |                                  JSON BODY                                     |         QUERY       |                     OPIS
+|--------------------------|---------|--------------------------------------------------------------------------------|---------------------|--------------------------------------------------
+| /office-distance/{id}    |  GET    |               {latitude:"latitude", longitude:"longitude"}                     |  id = identyfikator |Wyliczenie odległości i czasu podróży od dowolnego miejsca do biura firmy Shoper.pl
+| /office/all              |  GET    |                                     {}                                         |                     |Pobranie wszystkich biur zapisanych w bazie danych
+| /office/{id}             |  GET    |                                     {}                                         |  id = identyfikator |Pobranie biura na podstawie identyfikatora
+| /office                  |  POST   |{city:"city", street:"street", latitude:"latitude", longitude:"longitude"}      |                     |Dodanie nowego adresu biura
+| /office/{id}             |  DELETE |                                     {}                                         |  id = identyfikator |Usunięcie adresu biura na podstawie identyfikatora
+| /headquarter/{productId} |  PATCH  |{id=1, city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|                     |Edycja adresu już isniejącego biura
 
 ## Narzędzia - biblioteki deweloperskie
 Aby użyć narzędzi deweloperskich na początku należy skorzystać z Composer'a
