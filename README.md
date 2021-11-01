@@ -1,5 +1,5 @@
 # ShoperDistanceAPI
-Aplikacja do wyliczenia odległość i czas podróży od dowolnego miejsca do biura firmy Shoper.pl na podstawie współrzędnych
+Aplikacja do wyliczenia odległość i czasu podróży od dowolnego miejsca do biura firmy Shoper.pl na podstawie współrzędnych geograficznych
 z wykorzystaniem HereApi.
 
 ## Autor
