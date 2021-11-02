@@ -38,9 +38,15 @@ $ docker-compose down
 | /office/{id}             |  DELETE |                                     {}                                         |  id = identyfikator |Usunięcie adresu biura na podstawie identyfikatora
 | /headquarter/{productId} |  PATCH  |{id=1, city:"city", street:"street", latitude:"latitude", longitude:"longitude"}|                     |Edycja adresu już isniejącego biura
 
-###
+### Postman
 Kolekcja żądań do programu `Postman` znajduje się w głównym katalogu:
 `ShoperDistanceApi.postman_collection.json`
+
+### Logi
+Logi aplikacji zapisują się w folderze `logs` są rozdzielane na poszczególne pliki zależnie od zdarzenia:
+- `error.log`
+- `request.log`
+- `ShoperDistanceApi.log`
 
 ## Narzędzia - biblioteki deweloperskie
 Aby użyć narzędzi deweloperskich na początku należy skorzystać z Composer'a
