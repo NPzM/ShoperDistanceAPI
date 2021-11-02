@@ -18,6 +18,16 @@ class HereApi extends AbstractManagement
 {
     use ValidatorTrait;
 
+    /**
+    * @var HereApiClient
+    */
+    protected $client;
+
+    /**
+    * @var ShoperDistanceApi
+    */
+    protected $shoperDistanceApi;
+
     //Opcjonalne parametry na potrzeby testów jednoskowych
     public function __construct($client = null, $shoperDistanceApi = null)
     {

@@ -18,6 +18,7 @@ class HereApiTest extends \PHPUnit\Framework\TestCase
 {
     public $database;
     public $shoperDistance;
+    public $hereApiClient;
 
     protected function setUp(): void
     {
